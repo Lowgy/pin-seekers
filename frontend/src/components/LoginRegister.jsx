@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,9 +12,11 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FlagIcon } from 'lucide-react';
+import { AuthContext } from '@/lib/AuthContext';
 
 const LoginRegister = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -28,6 +30,13 @@ const LoginRegister = () => {
         password: password,
       });
       window.localStorage.setItem('token', data.token);
+      const response = await axios.get('http://localhost:3000/account', {
+        headers: {
+          authorization: data.token,
+        },
+      });
+      console.log(response.data);
+      setUser(response.data);
       navigate('/');
     } catch (err) {
       console.err(err.message);
@@ -43,11 +52,39 @@ const LoginRegister = () => {
         password: password,
       });
       window.localStorage.setItem(token, data.token);
+
+      const response = await axios.get('http://localhost:3000/account', {
+        headers: {
+          authorization: data.token,
+        },
+      });
+
+      setUser(response.data);
       navigate('/');
     } catch (err) {
       console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    const token = window.localStorage.getItem('token');
+
+    const tryToLogin = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/account', {
+          headers: {
+            authorization: token,
+          },
+        });
+        setUser(response.data);
+        navigate('/');
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    tryToLogin();
+  }, []);
 
   return (
     <div

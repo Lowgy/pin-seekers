@@ -12,6 +12,20 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 
+const isLoggedIn = (req, res, next) => {
+  const token = req.headers.authorization;
+  const user = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (!user) {
+    return res
+      .status(401)
+      .send({ message: 'You must be logged in to perform this action' });
+  }
+
+  req.user = user;
+  next();
+};
+
 app.get('/courses', (req, res) => {});
 
 app.post('/register', async (req, res, next) => {
@@ -74,6 +88,15 @@ app.post('/login', async (req, res, next) => {
   } catch (err) {
     next();
   }
+});
+
+app.get('/account', isLoggedIn, (req, res, next) => {
+  const { id, name, email } = req.user;
+  res.status(200).send({
+    id: id,
+    name: name,
+    email: email,
+  });
 });
 
 app.delete('/review/:id', (req, res) => {});
