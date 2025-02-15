@@ -1,10 +1,14 @@
 import './App.css';
-import { Button } from '@/components/ui/button';
+import { Routes, Route } from 'react-router-dom';
+import LoginRegister from '@/components/LoginRegister';
 
 function App() {
   return (
     <>
-      <Button>Click me</Button>
+      <Routes>
+        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/login" element={<LoginRegister />} />
+      </Routes>
     </>
   );
 }
