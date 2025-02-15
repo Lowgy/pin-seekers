@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -11,6 +14,41 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FlagIcon } from 'lucide-react';
 
 const LoginRegister = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [activeTab, setActiveTab] = useState('login');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('http://localhost:3000/login', {
+        email: email,
+        password: password,
+      });
+      window.localStorage.setItem('token', data.token);
+      navigate('/');
+    } catch (err) {
+      console.err(err.message);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('http://localhost:3000/register', {
+        email: email,
+        name: name,
+        password: password,
+      });
+      window.localStorage.setItem(token, data.token);
+      navigate('/');
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div
       className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-800 to-green-600 bg-cover bg-center"
@@ -32,7 +70,11 @@ const LoginRegister = () => {
           </p>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="login" className="w-full">
+          <Tabs
+            defaultValue="login"
+            className="w-full"
+            onValueChange={setActiveTab}
+          >
             <TabsList className="grid w-full grid-cols-2 mb-4">
               <TabsTrigger
                 value="login"
@@ -58,6 +100,7 @@ const LoginRegister = () => {
                     placeholder="Enter your email"
                     type="email"
                     className="border-green-300 focus:border-green-500 focus:ring-green-500"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -69,6 +112,7 @@ const LoginRegister = () => {
                     placeholder="Enter your password"
                     type="password"
                     className="border-green-300 focus:border-green-500 focus:ring-green-500"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </form>
@@ -83,6 +127,7 @@ const LoginRegister = () => {
                     id="name"
                     placeholder="Enter your name"
                     className="border-green-300 focus:border-green-500 focus:ring-green-500"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -94,6 +139,7 @@ const LoginRegister = () => {
                     placeholder="Enter your email"
                     type="email"
                     className="border-green-300 focus:border-green-500 focus:ring-green-500"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -105,6 +151,7 @@ const LoginRegister = () => {
                     placeholder="Choose a password"
                     type="password"
                     className="border-green-300 focus:border-green-500 focus:ring-green-500"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </form>
@@ -112,7 +159,10 @@ const LoginRegister = () => {
           </Tabs>
         </CardContent>
         <CardFooter>
-          <Button className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors duration-300">
+          <Button
+            className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors duration-300"
+            onClick={activeTab === 'login' ? handleLogin : handleRegister}
+          >
             Submit
           </Button>
         </CardFooter>
