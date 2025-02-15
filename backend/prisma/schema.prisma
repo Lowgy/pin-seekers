@@ -12,3 +12,42 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviews Review[]
+}
+
+model Course {
+  id String @id @default(uuid())
+  name String
+  lat Float
+  lng Float
+  address String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviews Review[]
+}
+
+model Review {
+  id String @id @default(uuid())
+  title String
+  body String
+  rating Int
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
