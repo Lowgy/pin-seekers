@@ -1,0 +1,687 @@
+[
+  {
+    "name": "Canoe Club Golf Course",
+    "lat": 49.8502107,
+    "lng": -97.1218131,
+    "place_id": "ChIJ2YcLv4926lIRIvKG623gMUY",
+    "address": "50 Dunkirk Dr, Winnipeg"
+  },
+  {
+    "name": "The Players Course",
+    "lat": 49.949815,
+    "lng": -97.2454502,
+    "place_id": "ChIJKwCpWpBy6lIRGw87baqTrxo",
+    "address": "2695 Park Royale Wy, Winnipeg"
+  },
+  {
+    "name": "St. Boniface Golf Club",
+    "lat": 49.8715641,
+    "lng": -97.1001963,
+    "place_id": "ChIJjaqVTtp26lIRefHrr-QJrNo",
+    "address": "100 Rue Youville, Winnipeg"
+  },
+  {
+    "name": "Windsor Park Golf Course",
+    "lat": 49.8627614,
+    "lng": -97.0944305,
+    "address": "10 Des Meurons St, Winnipeg, MB R2M 2X6"
+  },
+  {
+    "name": "Niakwa Country Club",
+    "lat": 49.8523799,
+    "lng": -97.092266,
+    "place_id": "ChIJX4U3o_x26lIRjhrwfvT-Tc8",
+    "address": "620 Niakwa Rd, Winnipeg"
+  },
+  {
+    "name": "Roland Golf Club",
+    "lat": 49.3971602,
+    "lng": -97.9624122,
+    "place_id": "ChIJBZ-PCpBAwlIR5XZ9VdFjSvw",
+    "address": "NE 17-5 4W, Roland"
+  },
+  {
+    "name": "Tuxedo Golf Club",
+    "lat": 49.8627445,
+    "lng": -97.2345068,
+    "place_id": "ChIJzUAiobF06lIRghTjmD9XX0U",
+    "address": "400 Shaftesbury Blvd, Winnipeg"
+  },
+  {
+    "name": "River Oaks Golf Course",
+    "lat": 49.7104964,
+    "lng": -97.201116,
+    "place_id": "ChIJpeSQcnLewVIRuD2BMyWxBzc",
+    "address": "River Oaks Rd, Ritchot"
+  },
+  {
+    "name": "Kildonan Park Golf Course",
+    "lat": 49.9476707,
+    "lng": -97.1051451,
+    "place_id": "ChIJCdTSLDRw6lIRYg5h1ZvOQcQ",
+    "address": "2021 Main St, Winnipeg"
+  },
+  {
+    "name": "Gilbert Plains Country Club",
+    "lat": 51.1515186,
+    "lng": -100.4963731,
+    "place_id": "ChIJzxDo1ebI5VIRpBtsjAe51sU",
+    "address": "100 Gordon Ave W, Gilbert Plains"
+  },
+  {
+    "name": "Roblin Golf & Country Club",
+    "lat": 51.2464594,
+    "lng": -101.3377593,
+    "place_id": "ChIJR-9P8d9x5FIRwWwxEuKvHRQ",
+    "address": "MB-591, Roblin"
+  },
+  {
+    "name": "Shooters Golf",
+    "lat": 49.9603575,
+    "lng": -97.0797851,
+    "place_id": "ChIJN-jbRhlw6lIRfq0Gcx_lFp0",
+    "address": "2731 Main St, Winnipeg"
+  },
+  {
+    "name": "Shooters Driving Range",
+    "lat": 49.96165,
+    "lng": -97.0836261,
+    "place_id": "ChIJN-jbRhlw6lIRfq0Gcx_lFp0",
+    "address": "2731 Main St, Winnipeg"
+  },
+  {
+    "name": "Pinawa Golf Club",
+    "lat": 50.1570828,
+    "lng": -95.8718675,
+    "place_id": "ChIJhdebdqZHlVIRCGJeDG2-Xp8",
+    "address": "1 Willis Dr, Pinawa"
+  },
+  {
+    "name": "Sandy Lake Golf Course",
+    "lat": 50.5233505,
+    "lng": -100.1562622,
+    "place_id": "ChIJxfiGWvtC5lIRGXBrw6SiR0s",
+    "address": "Lake St, Sandy Lake"
+  },
+  {
+    "name": "Minnedosa Golf & Country Club",
+    "lat": 50.2475236,
+    "lng": -99.8567063,
+    "place_id": "ChIJ-RE6uCnL51IRB_N0c3eBE0c",
+    "address": "61 6 St, Minnedosa"
+  },
+  {
+    "name": "Morris Riverview Golf Course",
+    "lat": 49.3614117,
+    "lng": -97.3517623,
+    "place_id": "ChIJs5Loq4mMwVIRqIm93tJwJds",
+    "address": "1 Riverview Drive, Morris"
+  },
+  {
+    "name": "Maplewood Golf Course",
+    "lat": 49.4633719,
+    "lng": -97.0123737,
+    "place_id": "ChIJrbrD-pW4wVIRMhwjnEpy1YU",
+    "address": "19113 Cure Rd, St Pierre-Jolys"
+  },
+  {
+    "name": "Clear Lake Golf Course",
+    "lat": 50.6779657,
+    "lng": -99.9133898,
+    "place_id": "ChIJwUPowFMI51IRCnsXZyEE9mM",
+    "address": "1 Johnnie Lawrence Dr, Onanole"
+  },
+  {
+    "name": "Lundar Golf Course",
+    "lat": 50.7062238,
+    "lng": -98.0473845,
+    "place_id": "ChIJF7lPoAdn6VIRWCW1xKijz5Q",
+    "address": "Lundar"
+  },
+  {
+    "name": "Neepawa Golf & Country Club",
+    "lat": 50.2361986,
+    "lng": -99.4448243,
+    "place_id": "ChIJ84QHh_XV51IRtxzWRahPt6A",
+    "address": "369 Broadway Ave, Neepawa"
+  },
+  {
+    "name": "Dauphin Lake Golf Club",
+    "lat": 51.1469682,
+    "lng": -99.8470029,
+    "place_id": "ChIJJQhnt-P25VIRcdu33MuN0ic",
+    "address": "258 Lake Dr. W, Ochre River"
+  },
+  {
+    "name": "Southport Golf Club",
+    "lat": 49.8981775,
+    "lng": -98.2553561,
+    "place_id": "ChIJiYH7kzDF6VIRgwlzM1B2iVI",
+    "address": "2655 Musketeer Rd E, Southport"
+  },
+  {
+    "name": "Portage Golf Club",
+    "lat": 49.9659839,
+    "lng": -98.3081504,
+    "place_id": "ChIJlUO_Qf7F6VIRaKmfMBFmGXQ",
+    "address": "1 Island Park, Portage la Prairie"
+  },
+  {
+    "name": "Minnewasta Golf & Country Club",
+    "lat": 49.1859786,
+    "lng": -98.129397,
+    "place_id": "ChIJjdkK7adRwlIR49kYfcmxe2k",
+    "address": "19 Buhler Dr, Morden"
+  },
+  {
+    "name": "Russell Golf Club",
+    "lat": 50.7751033,
+    "lng": -101.2120085,
+    "place_id": "ChIJqVH9tsCp5lIRkSm7JqazPtA",
+    "address": "111 MB-45, Russell"
+  },
+  {
+    "name": "Riverdale Golf & Country Club",
+    "lat": 50.0153081,
+    "lng": -100.3304444,
+    "place_id": "ChIJoRLExpqn51IRrlsP6a0pErE",
+    "address": "Rivers"
+  },
+  {
+    "name": "Rossmere Golf & Country Club",
+    "lat": 49.9300871,
+    "lng": -97.083309,
+    "place_id": "ChIJiTTyZl5w6lIRzCgV0EqoVRY",
+    "address": "925 Watt St, Winnipeg"
+  },
+  {
+    "name": "Transcona Golf Club",
+    "lat": 49.8812113,
+    "lng": -97.0229097,
+    "place_id": "ChIJWzLx0PN56lIRkGhb2_fWGvs",
+    "address": "2120 Dugald Rd, Winnipeg"
+  },
+  {
+    "name": "Hamiota Golf Club",
+    "lat": 50.1723733,
+    "lng": -100.5911908,
+    "place_id": "ChIJbyka75sd51IR13QRZ0t7H9A",
+    "address": "192 Maple Ave, Hamiota"
+  },
+  {
+    "name": "Oakview Golf and Country Club",
+    "lat": 49.0238261,
+    "lng": -97.5673566,
+    "place_id": "ChIJdV1iGW_Rw1IRrUi7CH1gcuQ",
+    "address": "1084 MB-30, Gretna"
+  },
+  {
+    "name": "Winkler Centennial Golf Course",
+    "lat": 49.1811388,
+    "lng": -97.9641788,
+    "place_id": "ChIJsQRBUGRJwlIRglqtkD2A-Bc",
+    "address": "400 Fifteenth St, Winkler"
+  },
+  {
+    "name": "Miniota Golf Club",
+    "lat": 50.119991,
+    "lng": -101.0208855,
+    "place_id": "ChIJiXpz36Mp51IRa6u404MVJ_k",
+    "address": "Miniota"
+  },
+  {
+    "name": "Manitou Town and Country Golf Club",
+    "lat": 49.2333364,
+    "lng": -98.5430887,
+    "place_id": "ChIJXx2RiL7vwlIR3U9LwYW12Jo",
+    "address": "132 MB-3, Manitou"
+  },
+  {
+    "name": "Pilot Mound Town & Country Golf Club",
+    "lat": 49.195736,
+    "lng": -98.8649679,
+    "place_id": "ChIJ7aVlzi3FwlIRBOuOFoVCpK0",
+    "address": "Louise"
+  },
+  {
+    "name": "Halcrow Lake Golf and Country Club",
+    "lat": 53.8136086,
+    "lng": -101.2604027,
+    "place_id": "ChIJq6qqhVrr-VIRnqO3Qdjp6Eg",
+    "address": "14 Golf Course Road, The Pas"
+  },
+  {
+    "name": "Deloraine Golf Club",
+    "lat": 49.1520773,
+    "lng": -100.4104763,
+    "place_id": "ChIJISsVXD3C3VIRdN6Wn7i8e8E",
+    "address": "SW 30-2-22 W, Deloraine"
+  },
+  {
+    "name": "Boissevain Golf Club",
+    "lat": 49.2105223,
+    "lng": -100.0551306,
+    "place_id": "ChIJpRKekZKh3VIR0JT5jgtFrrA",
+    "address": "SW 13-03-20-W1, Boissevain"
+  },
+  {
+    "name": "Northern Pines Golf Course",
+    "lat": 49.875917,
+    "lng": -99.9510058,
+    "place_id": "ChIJZwV6SAuX51IR40NTWsXBrgs",
+    "address": "1127 Braecrest Dr, Brandon"
+  },
+  {
+    "name": "Wheat City Golf Course",
+    "lat": 49.8542968,
+    "lng": -99.9925409,
+    "place_id": "ChIJizTJWOqZ51IR1d_FxadEmn8",
+    "address": "3500 McDonald Ave, Brandon"
+  },
+  {
+    "name": "Shilo Country Club",
+    "lat": 49.8018868,
+    "lng": -99.6151538,
+    "place_id": "ChIJj4keTBLu51IRjXuaNG4zDyM",
+    "address": "Manitoba R0K 2A0, Canada"
+  },
+  {
+    "name": "Wildewood Club Golf Course",
+    "lat": 49.8492006,
+    "lng": -97.1370973,
+    "place_id": "ChIJa-esMC906lIRzBumDngJhso",
+    "address": "739 North Dr, Winnipeg"
+  },
+  {
+    "name": "Assiniboine Golf Club",
+    "lat": 49.8871748,
+    "lng": -97.2329386,
+    "place_id": "ChIJN3VfEUNz6lIR7xRGCauK3LU",
+    "address": "2045 Ness Ave, Winnipeg"
+  },
+  {
+    "name": "Larters at St. Andrews",
+    "lat": 50.0372822,
+    "lng": -97.017741,
+    "place_id": "ChIJ99NXXzdk6lIR6FH_KHAugTY",
+    "address": "30 River Rd, Saint Andrews"
+  },
+  {
+    "name": "John Blumberg Golf Course",
+    "lat": 49.8701061,
+    "lng": -97.3666354,
+    "place_id": "ChIJ06bPDCYP6lIRKF0KJz43d7g",
+    "address": "4540 Portage Ave, Headingley"
+  },
+  {
+    "name": "Teulon Golf & Country Club",
+    "lat": 50.3981009,
+    "lng": -97.24074,
+    "place_id": "ChIJ_T9rwo8uwlIRsv4by7yKSuE",
+    "address": "089 MB-7 #94, Teulon"
+  },
+  {
+    "name": "Falcon Lake Golf Course",
+    "lat": 49.6834468,
+    "lng": -95.3398306,
+    "place_id": "ChIJ-5VrnPvOv1IRfrSlbS9JRAE",
+    "address": "100 S Shore Rd, Falcon Beach"
+  },
+  {
+    "name": "Cartwright Town & Country Golf",
+    "lat": 49.0903178,
+    "lng": -99.3838191,
+    "place_id": "ChIJ87DpfU8n3VIR4IWtckpjn8M",
+    "address": "Hwy 3, Cartwright"
+  },
+  {
+    "name": "Snow Lake Golf Club",
+    "lat": 54.8893157,
+    "lng": -100.0322569,
+    "place_id": "ChIJ5RuvYccx9lIRgIWC48w--kA",
+    "address": "519 Lakeshore Dr, Snow Lake"
+  },
+  {
+    "name": "Killarney Lakeside Golf Club",
+    "lat": 49.1963354,
+    "lng": -99.7094219,
+    "place_id": "ChIJQyYjahMR3VIRFVld717M_C4",
+    "address": "100 Golf Course Road, Killarney"
+  },
+  {
+    "name": "Pleasant Valley Golf Club",
+    "lat": 49.2767518,
+    "lng": -99.4611426,
+    "place_id": "ChIJaTUPAkDi51IRTdH4PGY4kPE",
+    "address": "451 Pleasant Valley Dr, Belmont"
+  },
+  {
+    "name": "Steinbach Fly-In Golf Club",
+    "lat": 49.541374,
+    "lng": -96.674671,
+    "place_id": "ChIJxbvCxzU0wFIRuLyKUv54Emo",
+    "address": "350 Park Rd E, Steinbach"
+  },
+  {
+    "name": "Oakwood Golf Course",
+    "lat": 49.6577729,
+    "lng": -96.5310967,
+    "place_id": "ChIJe88Cv8F26lIRGd1Q1KmOeDM",
+    "address": "Municipal Rd 41 E, Ste Anne"
+  },
+  {
+    "name": "Prairie Oaks Golf Course",
+    "lat": 49.7496658,
+    "lng": -96.949675,
+    "place_id": "ChIJox_ZnOfWwVIR4ncqH5hpzu4",
+    "address": "22048 Oak Grove Rd, Lorette"
+  },
+  {
+    "name": "Glenboro Golf & Country Club",
+    "lat": 49.5822958,
+    "lng": -99.3078679,
+    "place_id": "ChIJRzrv_YNT3VIROkrh5AFgFfM",
+    "address": "Glenboro"
+  },
+  {
+    "name": "Carman Golf Course",
+    "lat": 49.505345,
+    "lng": -98.0081092,
+    "place_id": "ChIJezRK5YZswlIRj70SxqK8izI",
+    "address": "4 Ave SW, Carman"
+  },
+  {
+    "name": "Southwood Golf & Country Club",
+    "lat": 49.7528928,
+    "lng": -97.1603563,
+    "place_id": "ChIJ2Z9UspJ16lIRqNWCprD933c",
+    "address": "80 Rue des Ruines du Monastere, Winnipeg"
+  },
+  {
+    "name": "Thompson Golf Club",
+    "lat": 55.7775659,
+    "lng": -97.8272219,
+    "place_id": "ChIJ7QNDdV_PX1IR72yaCjIBSKI",
+    "address": "1Moak, Lake Rd, Thompson"
+  },
+  {
+    "name": "Sunnyside Golf Club",
+    "lat": 49.8240299,
+    "lng": -100.0363483,
+    "place_id": "ChIJ9YJlQdyb51IRG9PpoB0gNCQ",
+    "address": "2 miles west of Brandon on Richmond Avenue & 66th Street, Brandon"
+  },
+  {
+    "name": "Delahunt Golf & Country Club",
+    "lat": 49.643614,
+    "lng": -98.6363763,
+    "place_id": "ChIJnzxHV2qcwlIRyCBLHmK4pes",
+    "address": "Treherne"
+  },
+  {
+    "name": "Whispering Winds of Warren",
+    "lat": 50.1340452,
+    "lng": -97.5224739,
+    "place_id": "ChIJDYyjNuki6lIRLe-7uAJBgWU",
+    "address": "Rd 3 W, Warren"
+  },
+  {
+    "name": "La Verendrye Golf Course",
+    "lat": 49.5211898,
+    "lng": -96.4939983,
+    "place_id": "ChIJa86oTfs5wFIRCRch06MPJS8",
+    "address": "247 Tétrault Rd, La Broquerie"
+  },
+  {
+    "name": "Selkirk Golf Course and Country Club",
+    "lat": 50.1321747,
+    "lng": -96.8676537,
+    "place_id": "ChIJRV7iSMSK6lIRJUvpaMsY2fM",
+    "address": "100 Sutherland Ave, Selkirk"
+  },
+  {
+    "name": "Southside",
+    "lat": 49.7808854,
+    "lng": -96.9967331,
+    "place_id": "ChIJ_Z2GlJbXwVIRM1v2xqCdAZU",
+    "address": "2226 Southside Rd, Grande Pointe"
+  },
+  {
+    "name": "Virden Wellview Golf Club",
+    "lat": 49.8388196,
+    "lng": -100.9680344,
+    "place_id": "ChIJ1dbANms251IR8LkpQsGEGX0",
+    "address": "MB-257, Virden"
+  },
+  {
+    "name": "Oak Lake Golf Club",
+    "lat": 49.7644346,
+    "lng": -100.6264291,
+    "place_id": "ChIJOZGLvjFC51IRDgFSOT-41-A",
+    "address": "173 S Railway St, Oak Lake"
+  },
+  {
+    "name": "Harbour View Golf Course",
+    "lat": 49.9355003,
+    "lng": -97.0164365,
+    "place_id": "ChIJNWo9xKl76lIR73rvOnHNgZA",
+    "address": "Springfield Rd, Winnipeg"
+  },
+  {
+    "name": "Swan River Golf and Country Club",
+    "lat": 52.0972994,
+    "lng": -101.3166607,
+    "place_id": "ChIJHQIjuL_N5FIR282C3fW7Z2E",
+    "address": "27 River Rd, Swan River"
+  },
+  {
+    "name": "Pine Falls Golf Club",
+    "lat": 50.565581,
+    "lng": -96.2066397,
+    "place_id": "ChIJGYiuVxAr61IRII1kIi4qCIA",
+    "address": "1Golf Course Rd, Powerview-Pine Falls"
+  },
+  {
+    "name": "Netley Creek Golf Course & RV Park",
+    "lat": 50.3097303,
+    "lng": -96.995649,
+    "place_id": "ChIJmRtVQdRZ6lIRDaeJumwSL3k",
+    "address": "1753 Fairway Rd, Petersfield"
+  },
+  {
+    "name": "Mars Sandhills Golf Course",
+    "lat": 50.2548008,
+    "lng": -96.582006,
+    "place_id": "ChIJhRi3lJiQ6lIRfPzwRG6I9ls",
+    "address": "Hwy 317, Rd 38E #85162, Libau"
+  },
+  {
+    "name": "Sandy Hook Golf Club",
+    "lat": 50.5289688,
+    "lng": -96.9935843,
+    "place_id": "ChIJW-C03p4A61IRKz3jXGv5yy4",
+    "address": "71 Clubhouse Rd, Sandy Hook"
+  },
+  {
+    "name": "Rivers Edge Golf Course",
+    "lat": 50.0675638,
+    "lng": -96.4678216,
+    "place_id": "ChIJvTlsXg6X6lIRbNd_G7uXZUo",
+    "address": "72045 Rd 43E, Beausejour"
+  },
+  {
+    "name": "Glendale Golf and Country Club",
+    "lat": 49.8755592,
+    "lng": -97.3154776,
+    "place_id": "ChIJrSr1THEM6lIROMMDuu7Dc3E",
+    "address": "400 Augier Ave, Winnipeg"
+  },
+  {
+    "name": "Hecla Golf Course",
+    "lat": 51.1810081,
+    "lng": -96.6240255,
+    "place_id": "ChIJQ4lA9jmn7FIR9NVbD_L3V-g",
+    "address": "MB-8, Gull Harbour"
+  },
+  {
+    "name": "Northernaire Golf & Country Club",
+    "lat": 50.8002791,
+    "lng": -96.9875313,
+    "place_id": "ChIJqzUIPUsL61IRlkGIBqQvHF8",
+    "address": "20091 Arnes Rd, Arnes"
+  },
+  {
+    "name": "Lake of the Sandhills",
+    "lat": 49.0081041,
+    "lng": -95.2398833,
+    "place_id": "ChIJ8QmKQSEav1IRM1pf3_c3u10",
+    "address": "30 Golf Course Rd, Buffalo Point"
+  },
+  {
+    "name": "Crescent Drive Golf Course",
+    "lat": 49.8354403,
+    "lng": -97.1382531,
+    "place_id": "ChIJXWhkH9R16lIR0BR3hptmFbc",
+    "address": "781 Crescent Dr, Winnipeg"
+  },
+  {
+    "name": "Birtle Riverside Golf Club",
+    "lat": 50.4209253,
+    "lng": -101.061017,
+    "place_id": "ChIJc6i2VRbG5lIRMG4TNfmKPc8",
+    "address": "Morton Dr, Birtle"
+  },
+  {
+    "name": "St Charles Country Club",
+    "lat": 49.8676289,
+    "lng": -97.2839508,
+    "place_id": "ChIJud89onwL6lIRh0PYNRPnnEo",
+    "address": "100 Country Club Blvd, Winnipeg"
+  },
+  {
+    "name": "Hartney Golf Club",
+    "lat": 49.4923684,
+    "lng": -100.5375594,
+    "place_id": "ChIJAfJsaf_03VIRYOKe9QjwSx4",
+    "address": "26 Provincial Trunk Hwy 21, Hartney"
+  },
+  {
+    "name": "Victoria Beach Golf Course",
+    "lat": 50.7098228,
+    "lng": -96.548411,
+    "place_id": "ChIJVVaA8V0861IR5naYgzpMHSg",
+    "address": "Victoria Beach"
+  },
+  {
+    "name": "Breezy Bend Golf Course",
+    "lat": 49.8560246,
+    "lng": -97.3715691,
+    "place_id": "ChIJxzQUJTgJ6lIRqK0xY60w78M",
+    "address": "7620 Roblin Blvd, Headingley"
+  },
+  {
+    "name": "Glen Lea Golf Course",
+    "lat": 49.8759,
+    "lng": -99.8543248,
+    "place_id": "ChIJ_2-fDDyU51IRoRKVghodYEM",
+    "address": "Lori Road, Box 17, Site 500, RR# 5, Chater"
+  },
+  {
+    "name": "MacGregor Golf Club",
+    "lat": 49.9721581,
+    "lng": -98.7720575,
+    "place_id": "ChIJb8YDWag56FIRciU9dLhucFk",
+    "address": "MB-350, MacGregor"
+  },
+  {
+    "name": "Inwood Golf and Country Club",
+    "lat": 50.5192163,
+    "lng": -97.500444,
+    "place_id": "ChIJ7wu4PezL61IRgwlS_sgqqxc",
+    "address": "hwy 17N, Inwood"
+  },
+  {
+    "name": "Melita Golf Club",
+    "lat": 49.2703649,
+    "lng": -100.9996614,
+    "place_id": "ChIJ-Z-2ivMO3lIRO9fvM8k8Iqw",
+    "address": "140 Townsend Dr, Melita"
+  },
+  {
+    "name": "Quarry Oaks Golf & Country Club",
+    "lat": 49.5520674,
+    "lng": -96.6051674,
+    "place_id": "ChIJMW4uBQM3wFIRF8v1aSc7Da8",
+    "address": "37142 Quarry Oaks Rd 38E, Steinbach"
+  },
+  {
+    "name": "Poplar Ridge Golf Course",
+    "lat": 50.6296685,
+    "lng": -99.980057,
+    "place_id": "ChIJJU-WRQIV5lIR2CJhcnSgO4c",
+    "address": "MB-354, Onanole"
+  },
+  {
+    "name": "Bel Acres Golf and Country Club",
+    "lat": 50.0381462,
+    "lng": -97.2812998,
+    "place_id": "ChIJjW2Avqls6lIRrW5oHJG6eBE",
+    "address": "7150 Meadows Rd, 70N"
+  },
+  {
+    "name": "Kyle Memorial Golf Course",
+    "lat": 49.1369843,
+    "lng": -97.1598863,
+    "place_id": "ChIJjyBwEP91wVIRuPqlY-mBL0I",
+    "address": "164 Johnston Ave, Dominion City"
+  },
+  {
+    "name": "Granite Hills Golf Club",
+    "lat": 50.3777377,
+    "lng": -95.8531068,
+    "place_id": "ChIJd40a9rkklVIRRvqu1g9e5PI",
+    "address": "Lac du Bonnet"
+  },
+  {
+    "name": "Bridges Golf Course",
+    "lat": 49.7635548,
+    "lng": -97.5821817,
+    "place_id": "ChIJL91XfNH_wVIRZocd0MaZZuc",
+    "address": "10 River Rd, Starbuck"
+  },
+  {
+    "name": "Scotswood Links",
+    "lat": 49.6774755,
+    "lng": -98.0176004,
+    "place_id": "ChIJj1DKULV0wlIReRsXSGyO9PI",
+    "address": "24084 MB-2, Elm Creek"
+  },
+  {
+    "name": "Gladstone Golf & Country Club",
+    "lat": 50.1899636,
+    "lng": -98.9579452,
+    "place_id": "ChIJL0WSEERc6FIRSfx9kqe5-Uw",
+    "address": "Provincial Trunk Hwy 34, Gladstone"
+  },
+  {
+    "name": "Lorette Golf Course",
+    "lat": 49.7405799,
+    "lng": -96.8969909,
+    "place_id": "ChIJ1SAr4QTUwVIRw28lPLt5G8A",
+    "address": "150 Fairway Dr, Lorette"
+  },
+  {
+    "name": "Grand Pines",
+    "lat": 50.6510947,
+    "lng": -96.5239636,
+    "place_id": "ChIJTUAktEEj61IRIXqWOQmZ9t4",
+    "address": "Provincial Trunk Hwy 59, Traverse Bay"
+  },
+  {
+    "name": "Souris Golf Club",
+    "lat": 49.608677,
+    "lng": -100.2401215,
+    "place_id": "ChIJsUtsDfd851IRgJ90J9IgiuM",
+    "address": "7 Ave W, Souris"
+  }
+]
