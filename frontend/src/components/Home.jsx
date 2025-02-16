@@ -63,9 +63,14 @@ const Home = () => {
     getCourses();
   }, []);
 
-  const handleMarkerClick = (course) => {
+  const handleMarkerOpen = (course) => {
     setZoom(15);
     setCenter({ lat: course.lat, lng: course.lng });
+  };
+
+  const handleMarkerClose = () => {
+    setZoom(DEFAULT_ZOOM);
+    setCenter(DEFAULT_CENTER);
   };
 
   const handleZoomChange = useCallback((ev) => {
@@ -150,7 +155,8 @@ const Home = () => {
                   key={course.id}
                   course={course}
                   position={{ lat: course.lat, lng: course.lng }}
-                  onMarkerClick={handleMarkerClick}
+                  onMarkerOpen={handleMarkerOpen}
+                  onMarkerClose={handleMarkerClose}
                 />
               ))}
             </Map>
