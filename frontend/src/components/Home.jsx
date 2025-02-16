@@ -1,19 +1,25 @@
-'use client';
-
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useCallback, useState, useEffect } from 'react';
 import { AuthContext } from '@/lib/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Map } from '@vis.gl/react-google-maps';
+import GolfMarker from '@/components/GolfMarker';
 import { FlagIcon, MapIcon, ListIcon, SearchIcon } from 'lucide-react';
 import axios from 'axios';
 
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const DEFAULT_ZOOM = 7;
+  const DEFAULT_CENTER = {
+    lat: 51.004483442123444,
+    lng: -98.28399184175208,
+  };
   const [viewMode, setViewMode] = useState('map');
+  const [zoom, setZoom] = useState(DEFAULT_ZOOM);
+  const [center, setCenter] = useState(DEFAULT_CENTER);
   const [golfCourses, setGolfCourses] = useState([]);
 
   const logout = () => {
@@ -47,6 +53,7 @@ const Home = () => {
             authorization: token,
           },
         });
+        console.log(data.courses);
         setGolfCourses(data.courses);
       } catch (err) {
         console.log(err.message);
@@ -55,6 +62,19 @@ const Home = () => {
 
     getCourses();
   }, []);
+
+  const handleMarkerClick = (course) => {
+    setZoom(15);
+    setCenter({ lat: course.lat, lng: course.lng });
+  };
+
+  const handleZoomChange = useCallback((ev) => {
+    setZoom(ev.detail.zoom);
+  });
+
+  const handleCenterChange = useCallback((ev) => {
+    setCenter(ev.detail.center);
+  });
 
   return (
     <div className="flex flex-col h-screen bg-green-50">
@@ -118,15 +138,22 @@ const Home = () => {
         {viewMode === 'map' ? (
           <div className="flex-grow">
             <Map
+              onCenterChanged={handleCenterChange}
+              onZoomChanged={handleZoomChange}
               style={{ width: '100%', height: '100%' }}
-              defaultCenter={{
-                lat: 51.004483442123444,
-                lng: -98.28399184175208,
-              }}
-              defaultZoom={7}
-              gestureHandling={'greedy'}
-              disableDefaultUI={true}
-            />
+              center={center}
+              mapId="golf-map"
+              zoom={zoom}
+            >
+              {golfCourses.map((course) => (
+                <GolfMarker
+                  key={course.id}
+                  course={course}
+                  position={{ lat: course.lat, lng: course.lng }}
+                  onMarkerClick={handleMarkerClick}
+                />
+              ))}
+            </Map>
           </div>
         ) : (
           <div className="container mx-auto px-4 overflow-auto">
