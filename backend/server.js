@@ -26,7 +26,16 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
-app.get('/courses', (req, res) => {});
+app.get('/courses', isLoggedIn, async (req, res, next) => {
+  try {
+    const courses = await prisma.course.findMany();
+    if (courses) {
+      res.status(200).send({ message: 'Retrieved Courses', courses: courses });
+    }
+  } catch (err) {
+    next();
+  }
+});
 
 app.post('/register', async (req, res, next) => {
   try {
