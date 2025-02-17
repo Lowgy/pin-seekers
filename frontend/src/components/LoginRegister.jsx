@@ -35,7 +35,6 @@ const LoginRegister = () => {
           authorization: data.token,
         },
       });
-      console.log(response.data);
       setUser(response.data);
       navigate('/');
     } catch (err) {

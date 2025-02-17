@@ -37,6 +37,26 @@ app.get('/courses', isLoggedIn, async (req, res, next) => {
   }
 });
 
+app.get('/course/:name', async (req, res, next) => {
+  try {
+    const course = await prisma.course.findFirst({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!course) {
+      res.status(400).send({ message: 'This course does not exist.' });
+    }
+
+    res
+      .status(200)
+      .send({ message: 'Course found successfully.', course: course });
+  } catch (err) {
+    next();
+  }
+});
+
 app.post('/register', async (req, res, next) => {
   try {
     const { name, email, password } = req.body;

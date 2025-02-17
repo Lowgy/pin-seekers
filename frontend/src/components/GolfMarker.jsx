@@ -64,7 +64,7 @@ const GolfMarker = ({ position, course, onMarkerOpen, onMarkerClose }) => {
                 {course.address}
               </CardDescription>
               <div className="space-y-2 mb-4"></div>
-              <Link to={`/course/${course.id}`}>
+              <Link to={`/course/${course.name}`}>
                 <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
                   View Course Details
                 </Button>

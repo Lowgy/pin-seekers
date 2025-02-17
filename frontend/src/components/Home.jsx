@@ -1,17 +1,17 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import { AuthContext } from '@/lib/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { MapIcon, ListIcon, SearchIcon, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
-import { FlagIcon, MapIcon, ListIcon, SearchIcon } from 'lucide-react';
+import NavBar from '@/components/NavBar';
 import axios from 'axios';
 
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
   const DEFAULT_ZOOM = 7;
   const DEFAULT_CENTER = {
     lat: 51.004483442123444,
@@ -21,12 +21,6 @@ const Home = () => {
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [golfCourses, setGolfCourses] = useState([]);
-
-  const logout = () => {
-    setUser(null);
-    window.localStorage.removeItem('token');
-    navigate('/login');
-  };
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -53,7 +47,6 @@ const Home = () => {
             authorization: token,
           },
         });
-        console.log(data.courses);
         setGolfCourses(data.courses);
       } catch (err) {
         console.log(err.message);
@@ -83,27 +76,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col h-screen bg-green-50">
-      <header className="bg-green-600 text-white p-4 shadow-md">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <FlagIcon className="h-8 w-8" />
-            <h1 className="text-2xl font-bold">Pin Seekers</h1>
-          </div>
-          <nav>
-            <Button variant="ghost" className="text-white hover:text-green-200">
-              Profile
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-white hover:text-green-200"
-              onClick={logout}
-            >
-              Logout
-            </Button>
-          </nav>
-        </div>
-      </header>
-
+      <NavBar />
       <main className="flex-grow flex flex-col">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center mb-4">
@@ -167,15 +140,20 @@ const Home = () => {
               <CardContent className="p-0">
                 <ul className="divide-y divide-green-100">
                   {golfCourses.map((course) => (
-                    <li
-                      key={course.id}
-                      className="p-4 hover:bg-green-50 transition-colors duration-150"
-                    >
-                      <h3 className="text-lg font-semibold text-green-800">
-                        {course.name}
-                      </h3>
-                      <p className="text-green-600">{course.address}</p>
-                    </li>
+                    <Link to={`/course/${course.id}`}>
+                      <li
+                        key={course.id}
+                        className="p-4 hover:bg-green-50 transition-colors duration-150 flex justify-between items-center"
+                      >
+                        <div>
+                          <h3 className="text-lg font-semibold text-green-800">
+                            {course.name}
+                          </h3>
+                          <p className="text-green-600">{course.address}</p>
+                        </div>
+                        <ChevronRight className="h-5 w-5 text-green-600" />
+                      </li>
+                    </Link>
                   ))}
                 </ul>
               </CardContent>
