@@ -32,6 +32,7 @@ model Course {
   lat Float
   lng Float
   address String
+  averageRating Float @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

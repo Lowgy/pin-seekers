@@ -1,21 +1,26 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import { AuthContext } from '@/lib/AuthContext';
 import { Link } from 'react-router-dom';
-import { MapIcon, ListIcon, SearchIcon, ChevronRight } from 'lucide-react';
+import {
+  MapIcon,
+  ListIcon,
+  SearchIcon,
+  ChevronRight,
+  FlagIcon,
+} from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
-import NavBar from '@/components/NavBar';
 import axios from 'axios';
 
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
-  const DEFAULT_ZOOM = 7;
+  const DEFAULT_ZOOM = 5.5;
   const DEFAULT_CENTER = {
-    lat: 51.004483442123444,
-    lng: -98.28399184175208,
+    lat: 52.73395510255055,
+    lng: -98.25222953460538,
   };
   const [viewMode, setViewMode] = useState('map');
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
@@ -76,7 +81,6 @@ const Home = () => {
 
   return (
     <div className="flex flex-col h-screen bg-green-50">
-      <NavBar />
       <main className="flex-grow flex flex-col">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center mb-4">
@@ -139,22 +143,29 @@ const Home = () => {
             <Card>
               <CardContent className="p-0">
                 <ul className="divide-y divide-green-100">
-                  {golfCourses.map((course) => (
-                    <Link to={`/course/${course.id}`}>
-                      <li
-                        key={course.id}
-                        className="p-4 hover:bg-green-50 transition-colors duration-150 flex justify-between items-center"
-                      >
-                        <div>
-                          <h3 className="text-lg font-semibold text-green-800">
-                            {course.name}
-                          </h3>
-                          <p className="text-green-600">{course.address}</p>
-                        </div>
-                        <ChevronRight className="h-5 w-5 text-green-600" />
-                      </li>
-                    </Link>
-                  ))}
+                  {golfCourses
+                    .sort((a, b) => b.averageRating - a.averageRating)
+                    .map((course) => (
+                      <Link to={`/course/${course.id}`} key={course.id}>
+                        <li className="p-4 hover:bg-green-50 transition-colors duration-150 flex justify-between items-center">
+                          <div>
+                            <h3 className="text-lg font-semibold text-green-800">
+                              {course.name}
+                            </h3>
+                            <p className="text-green-600">{course.address}</p>
+                          </div>
+                          <div className="flex items-center">
+                            <div className="flex items-center bg-green-600 text-white rounded-full px-2 py-1 mr-2">
+                              <FlagIcon className="w-4 h-4 mr-1" />
+                              <span className="text-sm font-semibold">
+                                {course.averageRating.toFixed(1)}
+                              </span>
+                            </div>
+                            <ChevronRight className="h-5 w-5 text-green-600" />
+                          </div>
+                        </li>
+                      </Link>
+                    ))}
                 </ul>
               </CardContent>
             </Card>

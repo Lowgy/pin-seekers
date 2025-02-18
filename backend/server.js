@@ -37,23 +37,44 @@ app.get('/courses', isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.get('/course/:name', async (req, res, next) => {
+app.get('/course/:id', async (req, res, next) => {
   try {
     const course = await prisma.course.findFirst({
       where: {
         id: req.params.id,
       },
+      include: {
+        reviews: {
+          include: {
+            user: true,
+          },
+        },
+      },
     });
 
     if (!course) {
-      res.status(400).send({ message: 'This course does not exist.' });
+      return res.status(400).send({ message: 'This course does not exist.' });
     }
 
-    res
-      .status(200)
-      .send({ message: 'Course found successfully.', course: course });
+    const formattedReviews = course.reviews.map((review) => ({
+      title: review.title,
+      body: review.body,
+      rating: review.rating,
+      user: review.user.name,
+      createdAt: review.createdAt,
+    }));
+
+    const formattedCourse = {
+      ...course,
+      reviews: formattedReviews,
+    };
+
+    res.status(200).send({
+      message: 'Course found successfully.',
+      course: formattedCourse,
+    });
   } catch (err) {
-    next();
+    next(err);
   }
 });
 
@@ -126,6 +147,81 @@ app.get('/account', isLoggedIn, (req, res, next) => {
     name: name,
     email: email,
   });
+});
+
+app.post('/review', isLoggedIn, async (req, res, next) => {
+  const token = req.headers.authorization;
+  const user = jwt.decode(token, process.env.JWT_SECRET);
+  try {
+    const { title, body, rating, course } = req.body;
+
+    const [review, updatedCourse] = await prisma.$transaction(async (tx) => {
+      const review = await tx.review.create({
+        data: {
+          title: title,
+          body: body,
+          rating: rating,
+          userId: user.id,
+          courseId: course,
+        },
+      });
+
+      const reviews = await tx.review.findMany({
+        where: {
+          courseId: course,
+        },
+      });
+
+      const totalRating = reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
+      const averageRating =
+        reviews.length > 0 ? totalRating / reviews.length : 0;
+
+      const updatedCourse = await tx.course.update({
+        where: {
+          id: course,
+        },
+        data: {
+          averageRating: averageRating,
+        },
+      });
+
+      return [review, updatedCourse];
+    });
+
+    const reviews = await prisma.review.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        user: true,
+      },
+    });
+    console.log(reviews);
+
+    const formattedReviews = [];
+    for (var i = 0; i < reviews.length; i++) {
+      if (course === reviews[i].courseId) {
+        let review = {
+          title: reviews[i].title,
+          body: reviews[i].body,
+          rating: reviews[i].rating,
+          user: reviews[i].user.name,
+          createdAt: reviews[i].createdAt,
+        };
+        formattedReviews.push(review);
+      }
+    }
+
+    res.status(200).send({
+      message: 'Review successfully created and course rating updated',
+      review: formattedReviews,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.delete('/review/:id', (req, res) => {});

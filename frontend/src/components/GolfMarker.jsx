@@ -1,10 +1,12 @@
+'use client';
+
 import {
   AdvancedMarker,
   InfoWindow,
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps';
 import { useState, useCallback } from 'react';
-import { StarIcon, MapPinIcon } from 'lucide-react';
+import { FlagIcon, MapPinIcon, PhoneIcon, GlobeIcon } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -32,6 +34,7 @@ const GolfMarker = ({ position, course, onMarkerOpen, onMarkerClose }) => {
       setInfoWindowShown(false);
     }
   });
+
   return (
     <>
       <AdvancedMarker
@@ -47,24 +50,47 @@ const GolfMarker = ({ position, course, onMarkerOpen, onMarkerClose }) => {
       </AdvancedMarker>
       {infoWindowShown && (
         <InfoWindow anchor={marker} onClose={handleMarkerClose}>
-          <Card className="w-72 overflow-hidden">
-            {/* <CardHeader className="p-0">
-          <img src={course.image || "/placeholder.svg"} alt={course.name} className="w-full h-32 object-cover" />
-          <div className="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            <StarIcon className="inline-block w-4 h-4 mr-1" />
-            {course.rating.toFixed(1)}
-          </div>
-        </CardHeader> */}
+          <Card className="w-72 overflow-hidden shadow-lg">
+            <CardHeader className="p-4 bg-green-50">
+              <div className="flex justify-between items-center">
+                <CardTitle className="text-lg font-bold text-green-800">
+                  {course.name}
+                </CardTitle>
+                <div className="flex items-center bg-green-600 text-white px-2 py-1 rounded-full text-sm font-semibold">
+                  <FlagIcon className="w-4 h-4 mr-1" />
+                  {course.averageRating.toFixed(1)}
+                </div>
+              </div>
+            </CardHeader>
             <CardContent className="p-4">
-              <CardTitle className="text-lg font-bold text-green-800 mb-2">
-                {course.name}
-              </CardTitle>
-              <CardDescription className="text-sm text-green-600 mb-4">
-                <MapPinIcon className="inline-block w-4 h-4 mr-1" />
-                {course.address}
+              <CardDescription className="text-sm text-green-600 mb-4 flex items-start">
+                <MapPinIcon className="w-4 h-4 mr-2 mt-1 flex-shrink-0" />
+                <span>{course.address}</span>
               </CardDescription>
-              <div className="space-y-2 mb-4"></div>
-              <Link to={`/course/${course.name}`}>
+              <div className="space-y-2 mb-4">
+                {course.phone && (
+                  <p className="text-sm flex items-center text-gray-600">
+                    <PhoneIcon className="w-4 h-4 mr-2" />
+                    <a href={`tel:${course.phone}`} className="hover:underline">
+                      {course.phone}
+                    </a>
+                  </p>
+                )}
+                {course.website && (
+                  <p className="text-sm flex items-center text-gray-600">
+                    <GlobeIcon className="w-4 h-4 mr-2" />
+                    <a
+                      href={course.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      Visit Website
+                    </a>
+                  </p>
+                )}
+              </div>
+              <Link to={`/course/${course.id}`}>
                 <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
                   View Course Details
                 </Button>
