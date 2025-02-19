@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, FlagIcon, PenIcon, XIcon } from 'lucide-react';
+import { CalendarIcon, FlagIcon, XIcon, ChevronLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { AuthContext } from '@/lib/AuthContext';
 import { Label } from './ui/label';
@@ -83,6 +84,18 @@ const Profile = () => {
     </>
   ) : (
     <div className="container mx-auto px-4 py-8">
+      <div className="mb-6">
+        <Button
+          asChild
+          variant="outline"
+          className="text-green-600 border-green-600 hover:bg-green-50"
+        >
+          <Link to="/">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Return Home
+          </Link>
+        </Button>
+      </div>
       <Card className="mb-8">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
