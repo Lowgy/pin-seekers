@@ -50,7 +50,7 @@ const LoginRegister = () => {
         name: name,
         password: password,
       });
-      window.localStorage.setItem(token, data.token);
+      window.localStorage.setItem('token', data.token);
 
       const response = await axios.get('http://localhost:3000/account', {
         headers: {

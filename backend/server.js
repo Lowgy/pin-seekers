@@ -81,7 +81,7 @@ app.get('/course/:id', async (req, res, next) => {
 app.post('/register', async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         email,
       },
@@ -140,13 +140,57 @@ app.post('/login', async (req, res, next) => {
   }
 });
 
-app.get('/account', isLoggedIn, (req, res, next) => {
-  const { id, name, email } = req.user;
-  res.status(200).send({
-    id: id,
-    name: name,
-    email: email,
-  });
+app.get('/account', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      include: {
+        reviews: true,
+      },
+    });
+    console.log(user);
+    res.status(200).send({
+      message: 'User successfully retrieved',
+      user: user,
+    });
+  } catch (err) {
+    next();
+  }
+});
+
+app.put('/account', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    if (!user) {
+      res.status(400).send({ message: 'Error updating user.' });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        name: req.body.name,
+        email: req.body.email,
+      },
+      include: {
+        reviews: true,
+      },
+    });
+
+    res
+      .status(200)
+      .send({ message: 'Updated user successfully', user: updatedUser });
+  } catch (err) {
+    next();
+  }
 });
 
 app.post('/review', isLoggedIn, async (req, res, next) => {
@@ -193,7 +237,7 @@ app.post('/review', isLoggedIn, async (req, res, next) => {
 
     const reviews = await prisma.review.findMany({
       where: {
-        userId: user.id,
+        courseId: course,
       },
       include: {
         user: true,
@@ -224,7 +268,31 @@ app.post('/review', isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.delete('/review/:id', (req, res) => {});
+app.delete('/review/:id', isLoggedIn, async (req, res, next) => {
+  try {
+    const review = await prisma.review.findFirst({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!review) {
+      res.status(400).send({ message: 'Error deleting review' });
+    }
+
+    await prisma.review.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res
+      .status(200)
+      .send({ message: 'Review deleted successfully', review: review });
+  } catch (err) {
+    next();
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

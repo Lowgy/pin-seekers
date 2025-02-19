@@ -37,7 +37,7 @@ const Home = () => {
             authorization: token,
           },
         });
-        setUser(response.data);
+        setUser(response.data.user);
       } catch (err) {
         console.error(err.message);
       }
