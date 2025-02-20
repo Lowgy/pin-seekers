@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import Spinner from '@/components/spinner';
+import Spinner from '@/components/Spinner';
 import { format } from 'date-fns';
 import { AuthContext } from '@/lib/AuthContext';
 
