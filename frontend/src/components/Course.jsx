@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { format } from 'date-fns';
+import Spinner from '@/components/Spinner';
 
 const Course = () => {
   const token = localStorage.getItem('token');

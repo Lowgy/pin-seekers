@@ -1,6 +1,14 @@
+'use client';
+
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import { CalendarIcon, FlagIcon, XIcon, ChevronLeft } from 'lucide-react';
+import {
+  CalendarIcon,
+  FlagIcon,
+  XIcon,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,6 +25,8 @@ const Profile = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 5;
 
   useEffect(() => {
     const tryToLogin = async () => {
@@ -37,7 +47,7 @@ const Profile = () => {
     };
 
     tryToLogin();
-  }, []);
+  }, [setUser, token]);
 
   const handleEditProfile = async (e) => {
     e.preventDefault();
@@ -65,14 +75,13 @@ const Profile = () => {
   const handleReviewDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}review/${id}`,
+        `${import.meta.env.VITE_API_URL}/review/${id}`,
         {
           headers: {
             authorization: token,
           },
         }
       );
-      console.log(response.data);
       setUser((prevUser) => ({
         ...prevUser,
         reviews: prevUser.reviews.filter((review) => review.id !== id),
@@ -81,6 +90,14 @@ const Profile = () => {
       console.error(err.message);
     }
   };
+
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews =
+    user?.reviews?.slice(indexOfFirstReview, indexOfLastReview) || [];
+  const totalPages = Math.ceil((user?.reviews?.length || 0) / reviewsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return isLoading ? (
     <div className="container mx-auto px-4 py-8">
@@ -143,7 +160,6 @@ const Profile = () => {
                 </form>
               ) : (
                 <>
-                  {' '}
                   <h1 className="text-3xl font-bold text-green-800 mb-2">
                     {user.name}
                   </h1>
@@ -168,43 +184,84 @@ const Profile = () => {
       <h2 className="text-2xl font-bold text-green-800 mb-4">Your Reviews</h2>
       <div className="space-y-6">
         {user.reviews.length > 0 ? (
-          user.reviews.map((review) => (
-            <Card key={review.id}>
-              <CardHeader>
-                <CardTitle className="flex justify-between items-center">
-                  <h1 className="text-xl font-semibold text-green-700">
-                    {review.title}
-                  </h1>
-                  <div className="flex items-center bg-green-600 text-white rounded-full px-2 py-1">
-                    <FlagIcon className="w-5 h-5 mr-1" />
-                    <span className="font-semibold">
-                      {review.rating.toFixed(1)}
+          <>
+            {currentReviews.map((review) => (
+              <Card key={review.id}>
+                <CardHeader>
+                  <CardTitle className="flex justify-between items-center">
+                    <h1 className="text-xl font-semibold text-green-700">
+                      {review.title}
+                    </h1>
+                    <div className="flex items-center bg-green-600 text-white rounded-full px-2 py-1">
+                      <FlagIcon className="w-5 h-5 mr-1" />
+                      <span className="font-semibold">
+                        {review.rating.toFixed(1)}
+                      </span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4">{review.body}</p>
+                  <div className="flex justify-between items-center text-sm text-gray-500">
+                    <span className="flex items-center">
+                      <CalendarIcon className="w-4 h-4 mr-1" />
+                      {format(new Date(review.createdAt), 'MMM d, yyyy')}
                     </span>
+                    <Button
+                      size="sm"
+                      onClick={() => handleReviewDelete(review.id)}
+                      className="text-white hover:bg-red-400 bg-red-500"
+                    >
+                      <XIcon className="w-4 h-4 mr-2" />
+                      Delete Review
+                    </Button>
                   </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 mb-4">{review.body}</p>
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span className="flex items-center">
-                    <CalendarIcon className="w-4 h-4 mr-1" />
-                    {format(new Date(review.createdAt), 'MMM d, yyyy')}
-                  </span>
+                </CardContent>
+              </Card>
+            ))}
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center space-x-2 mt-6">
+                <Button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  variant="outline"
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                {Array.from({ length: totalPages }, (_, i) => (
                   <Button
-                    size="sm"
-                    onClick={() => handleReviewDelete(review.id)}
-                    className="text-white hover:bg-red-400
-                      bg-red-500"
+                    key={i}
+                    onClick={() => paginate(i + 1)}
+                    variant={currentPage === i + 1 ? 'default' : 'outline'}
+                    className={`${
+                      currentPage === i + 1
+                        ? 'bg-green-600 text-white'
+                        : 'text-green-600 border-green-600 hover:bg-green-50'
+                    }`}
                   >
-                    <XIcon className="w-4 h-4 mr-2" />
-                    Delete Review
+                    {i + 1}
                   </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))
+                ))}
+                <Button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  variant="outline"
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </>
         ) : (
-          <>No Reviews</>
+          <Card>
+            <CardContent className="p-6 text-center text-gray-500">
+              No reviews yet
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>

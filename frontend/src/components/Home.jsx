@@ -6,6 +6,7 @@ import {
   ListIcon,
   SearchIcon,
   ChevronRight,
+  ChevronLeft,
   FlagIcon,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -26,6 +27,8 @@ const Home = () => {
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [golfCourses, setGolfCourses] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 8;
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -85,8 +88,22 @@ const Home = () => {
     setCenter(ev.detail.center);
   });
 
+  // Pagination logic
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const sortedCourses = [...golfCourses].sort(
+    (a, b) => b.averageRating - a.averageRating
+  );
+  const currentCourses = sortedCourses.slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
+  const totalPages = Math.ceil(golfCourses.length / coursesPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="flex flex-col h-screen bg-green-50">
+    <div className="flex flex-col bg-green-50">
       <main className="flex-grow flex flex-col">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center mb-4">
@@ -149,32 +166,66 @@ const Home = () => {
             <Card>
               <CardContent className="p-0">
                 <ul className="divide-y divide-green-100">
-                  {golfCourses
-                    .sort((a, b) => b.averageRating - a.averageRating)
-                    .map((course) => (
-                      <Link to={`/course/${course.id}`} key={course.id}>
-                        <li className="p-4 hover:bg-green-50 transition-colors duration-150 flex justify-between items-center">
-                          <div>
-                            <h3 className="text-lg font-semibold text-green-800">
-                              {course.name}
-                            </h3>
-                            <p className="text-green-600">{course.address}</p>
+                  {currentCourses.map((course) => (
+                    <Link to={`/course/${course.id}`} key={course.id}>
+                      <li className="p-4 hover:bg-green-50 transition-colors duration-150 flex justify-between items-center">
+                        <div>
+                          <h3 className="text-lg font-semibold text-green-800">
+                            {course.name}
+                          </h3>
+                          <p className="text-green-600">{course.address}</p>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="flex items-center bg-green-600 text-white rounded-full px-2 py-1 mr-2">
+                            <FlagIcon className="w-4 h-4 mr-1" />
+                            <span className="text-sm font-semibold">
+                              {course.averageRating.toFixed(1)}
+                            </span>
                           </div>
-                          <div className="flex items-center">
-                            <div className="flex items-center bg-green-600 text-white rounded-full px-2 py-1 mr-2">
-                              <FlagIcon className="w-4 h-4 mr-1" />
-                              <span className="text-sm font-semibold">
-                                {course.averageRating.toFixed(1)}
-                              </span>
-                            </div>
-                            <ChevronRight className="h-5 w-5 text-green-600" />
-                          </div>
-                        </li>
-                      </Link>
-                    ))}
+                          <ChevronRight className="h-5 w-5 text-green-600" />
+                        </div>
+                      </li>
+                    </Link>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center space-x-2 mt-6 mb-6">
+                <Button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  variant="outline"
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <Button
+                    key={i}
+                    onClick={() => paginate(i + 1)}
+                    variant={currentPage === i + 1 ? 'default' : 'outline'}
+                    className={`${
+                      currentPage === i + 1
+                        ? 'bg-green-600 text-white'
+                        : 'text-green-600 border-green-600 hover:bg-green-50'
+                    }`}
+                  >
+                    {i + 1}
+                  </Button>
+                ))}
+                <Button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  variant="outline"
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </main>
