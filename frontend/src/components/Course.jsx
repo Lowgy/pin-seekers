@@ -89,9 +89,9 @@ const Course = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return isLoading ? (
-    <>
-      <h1>Loading...</h1>
-    </>
+    <div className="container mx-auto px-4 py-8">
+      <Spinner size="lg" />
+    </div>
   ) : (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">

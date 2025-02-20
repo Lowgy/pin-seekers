@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import { CalendarIcon, FlagIcon, XIcon, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, FlagIcon, XIcon, ChevronLeft } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import Spinner from '@/components/spinner';
 import { format } from 'date-fns';
 import { AuthContext } from '@/lib/AuthContext';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
 
 const Profile = () => {
   const token = window.localStorage.getItem('token');
@@ -82,9 +83,9 @@ const Profile = () => {
   };
 
   return isLoading ? (
-    <>
-      <h1>hi</h1>
-    </>
+    <div className="container mx-auto px-4 py-8">
+      <Spinner size="lg" />
+    </div>
   ) : (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
