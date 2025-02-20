@@ -21,6 +21,7 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [activeTab, setActiveTab] = useState('login');
+  const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +45,8 @@ const LoginRegister = () => {
       setUser(response.data);
       navigate('/');
     } catch (err) {
-      console.err(err.message);
+      console.log(err);
+      setError(err.response.data.message);
     }
   };
 
@@ -73,7 +75,8 @@ const LoginRegister = () => {
       setUser(response.data);
       navigate('/');
     } catch (err) {
-      console.error(err.message);
+      console.log(err);
+      setError(err.response.data.message);
     }
   };
 
@@ -93,7 +96,7 @@ const LoginRegister = () => {
         setUser(response.data);
         navigate('/');
       } catch (err) {
-        console.error(err.message);
+        console.log(err.message);
       }
     };
 
@@ -209,6 +212,9 @@ const LoginRegister = () => {
             </TabsContent>
           </Tabs>
         </CardContent>
+        <CardFooter>
+          <p className="text-red-600 text-center">{error}</p>
+        </CardFooter>
         <CardFooter>
           <Button
             className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors duration-300"

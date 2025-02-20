@@ -85,6 +85,15 @@ app.get('/course/:id', async (req, res, next) => {
 app.post('/register', async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      res.status(400).send({ message: 'All fields are required.' });
+    }
+
+    if (!email.includes('@') || !email.includes('.')) {
+      res.status(400).send({ message: 'Please enter a valid email address.' });
+    }
+
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -118,6 +127,15 @@ app.post('/register', async (req, res, next) => {
 app.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(400).send({ message: 'All fields are required.' });
+    }
+
+    if (!email.includes('@') || !email.includes('.')) {
+      res.status(400).send({ message: 'Please enter a valid email address.' });
+    }
+
     const user = await prisma.user.findFirst({
       where: {
         email,

@@ -95,11 +95,10 @@ const Home = () => {
     setCenter(ev.detail.center);
   });
 
-  // Debounced search function
   const debouncedSearch = useCallback(
     debounce((term) => {
       setSearchTerm(term);
-    }, 200), // Adjust the debounce delay as needed (milliseconds)
+    }, 200),
     []
   );
 
@@ -107,12 +106,10 @@ const Home = () => {
     debouncedSearch(e.target.value);
   };
 
-  // Filter courses based on search term
   const filteredCourses = golfCourses.filter((course) =>
     course.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Calculate pagination values based on filtered courses
   const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -120,7 +117,6 @@ const Home = () => {
     .sort((a, b) => b.averageRating - a.averageRating)
     .slice(startIndex, endIndex);
 
-  // Generate page numbers for pagination
   const getPageNumbers = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
