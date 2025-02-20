@@ -23,6 +23,7 @@ import {
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
 import axios from 'axios';
+import { debounce } from 'lodash'; // Import debounce
 
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -34,6 +35,7 @@ const Home = () => {
   const [golfCourses, setGolfCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [searchTerm, setSearchTerm] = useState(''); // New state for search term
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -93,11 +95,28 @@ const Home = () => {
     setCenter(ev.detail.center);
   });
 
-  // Calculate pagination values
-  const totalPages = Math.ceil(golfCourses.length / itemsPerPage);
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    debounce((term) => {
+      setSearchTerm(term);
+    }, 200), // Adjust the debounce delay as needed (milliseconds)
+    []
+  );
+
+  const handleSearchChange = (e) => {
+    debouncedSearch(e.target.value);
+  };
+
+  // Filter courses based on search term
+  const filteredCourses = golfCourses.filter((course) =>
+    course.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Calculate pagination values based on filtered courses
+  const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentCourses = golfCourses
+  const currentCourses = filteredCourses
     .sort((a, b) => b.averageRating - a.averageRating)
     .slice(startIndex, endIndex);
 
@@ -150,6 +169,7 @@ const Home = () => {
                 type="text"
                 placeholder="Search golf courses..."
                 className="pl-10 border-green-300 focus:border-green-500 focus:ring-green-500"
+                onChange={handleSearchChange}
               />
             </div>
           </div>
@@ -164,7 +184,7 @@ const Home = () => {
               mapId="golf-map"
               zoom={zoom}
             >
-              {golfCourses.map((course) => (
+              {filteredCourses.map((course) => (
                 <GolfMarker
                   key={course.id}
                   course={course}
