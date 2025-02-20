@@ -6,12 +6,20 @@ import {
   ListIcon,
   SearchIcon,
   ChevronRight,
-  ChevronLeft,
   FlagIcon,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
 import axios from 'axios';
@@ -19,16 +27,13 @@ import axios from 'axios';
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
   const DEFAULT_ZOOM = 5.5;
-  const DEFAULT_CENTER = {
-    lat: 52.73395510255055,
-    lng: -98.25222953460538,
-  };
+  const DEFAULT_CENTER = { lat: 52.73395510255055, lng: -98.25222953460538 };
   const [viewMode, setViewMode] = useState('map');
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [golfCourses, setGolfCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const coursesPerPage = 8;
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -88,22 +93,33 @@ const Home = () => {
     setCenter(ev.detail.center);
   });
 
-  // Pagination logic
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const sortedCourses = [...golfCourses].sort(
-    (a, b) => b.averageRating - a.averageRating
-  );
-  const currentCourses = sortedCourses.slice(
-    indexOfFirstCourse,
-    indexOfLastCourse
-  );
-  const totalPages = Math.ceil(golfCourses.length / coursesPerPage);
+  // Calculate pagination values
+  const totalPages = Math.ceil(golfCourses.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentCourses = golfCourses
+    .sort((a, b) => b.averageRating - a.averageRating)
+    .slice(startIndex, endIndex);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - 1 && i <= currentPage + 1)
+      ) {
+        pages.push(i);
+      } else if (i === currentPage - 2 || i === currentPage + 2) {
+        pages.push('...');
+      }
+    }
+    return pages;
+  };
 
   return (
-    <div className="flex flex-col bg-green-50">
+    <div className="flex flex-col bg-green-50 min-h-screen">
       <main className="flex-grow flex flex-col">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center mb-4">
@@ -127,7 +143,6 @@ const Home = () => {
               </Button>
             </div>
           </div>
-
           <div className="mb-4">
             <div className="relative">
               <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -139,9 +154,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         {viewMode === 'map' ? (
-          <div className="flex-grow">
+          <div className="h-[calc(100vh-180px)]">
             <Map
               onCenterChanged={handleCenterChange}
               onZoomChanged={handleZoomChange}
@@ -190,40 +204,49 @@ const Home = () => {
                 </ul>
               </CardContent>
             </Card>
-
-            {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex justify-center space-x-2 mt-6 mb-6">
-                <Button
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  variant="outline"
-                  className="text-green-600 border-green-600 hover:bg-green-50"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <Button
-                    key={i}
-                    onClick={() => paginate(i + 1)}
-                    variant={currentPage === i + 1 ? 'default' : 'outline'}
-                    className={`${
-                      currentPage === i + 1
-                        ? 'bg-green-600 text-white'
-                        : 'text-green-600 border-green-600 hover:bg-green-50'
-                    }`}
-                  >
-                    {i + 1}
-                  </Button>
-                ))}
-                <Button
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  variant="outline"
-                  className="text-green-600 border-green-600 hover:bg-green-50"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+              <div className="mt-4 flex justify-center mb-4">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage > 1) setCurrentPage(currentPage - 1);
+                        }}
+                      />
+                    </PaginationItem>
+                    {getPageNumbers().map((pageNum, index) => (
+                      <PaginationItem key={index}>
+                        {pageNum === '...' ? (
+                          <PaginationEllipsis />
+                        ) : (
+                          <PaginationLink
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setCurrentPage(pageNum);
+                            }}
+                            isActive={currentPage === pageNum}
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        )}
+                      </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                      <PaginationNext
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < totalPages)
+                            setCurrentPage(currentPage + 1);
+                        }}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             )}
           </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -12,10 +14,18 @@ import {
   GlobeIcon,
   ChevronLeft,
   FlagIcon,
-  ChevronRight,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import Spinner from '@/components/Spinner';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from '@/components/ui/pagination';
 
 const Course = () => {
   const token = localStorage.getItem('token');
@@ -47,7 +57,7 @@ const Course = () => {
     if (token) {
       getCourseInfo();
     }
-  }, []);
+  }, [id, token]);
 
   const handleRatingClick = (e, rating) => {
     e.preventDefault();
@@ -86,6 +96,23 @@ const Course = () => {
   const totalPages = Math.ceil(courseReviews.length / reviewsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - 1 && i <= currentPage + 1)
+      ) {
+        pages.push(i);
+      } else if (i === currentPage - 2 || i === currentPage + 2) {
+        pages.push('...');
+      }
+    }
+    return pages;
+  };
 
   return isLoading ? (
     <div className="container mx-auto px-4 py-8">
@@ -185,38 +212,49 @@ const Course = () => {
       </div>
 
       {/* Pagination */}
-      {currentReviews.length > 0 && (
-        <div className="flex justify-center space-x-2 mb-8">
-          <Button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            variant="outline"
-            className="text-green-600 border-green-600 hover:bg-green-50"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <Button
-              key={i}
-              onClick={() => paginate(i + 1)}
-              variant={currentPage === i + 1 ? 'default' : 'outline'}
-              className={`${
-                currentPage === i + 1
-                  ? 'bg-green-600 text-white'
-                  : 'text-green-600 border-green-600 hover:bg-green-50'
-              }`}
-            >
-              {i + 1}
-            </Button>
-          ))}
-          <Button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            variant="outline"
-            className="text-green-600 border-green-600 hover:bg-green-50"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
+      {totalPages > 1 && (
+        <div className="mt-4 flex justify-center mb-4">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) setCurrentPage(currentPage - 1);
+                  }}
+                />
+              </PaginationItem>
+              {getPageNumbers().map((pageNum, index) => (
+                <PaginationItem key={index}>
+                  {pageNum === '...' ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCurrentPage(pageNum);
+                      }}
+                      isActive={currentPage === pageNum}
+                    >
+                      {pageNum}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages)
+                      setCurrentPage(currentPage + 1);
+                  }}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       )}
 
