@@ -20,11 +20,14 @@ const Profile = () => {
   useEffect(() => {
     const tryToLogin = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/account', {
-          headers: {
-            authorization: token,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/account`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
         setUser(response.data.user);
         setIsLoading(false);
       } catch (err) {
@@ -40,7 +43,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        'http://localhost:3000/account',
+        `${import.meta.env.VITE_API_URL}/account`,
         {
           name: name || user.name,
           email: email || user.email,
@@ -61,7 +64,7 @@ const Profile = () => {
   const handleReviewDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/review/${id}`,
+        `${import.meta.env.VITE_API_URL}review/${id}`,
         {
           headers: {
             authorization: token,

@@ -25,16 +25,22 @@ const LoginRegister = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:3000/login', {
-        email: email,
-        password: password,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
       window.localStorage.setItem('token', data.token);
-      const response = await axios.get('http://localhost:3000/account', {
-        headers: {
-          authorization: data.token,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/account`,
+        {
+          headers: {
+            authorization: data.token,
+          },
+        }
+      );
       setUser(response.data);
       navigate('/');
     } catch (err) {
@@ -45,18 +51,24 @@ const LoginRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:3000/register', {
-        email: email,
-        name: name,
-        password: password,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/register`,
+        {
+          email: email,
+          name: name,
+          password: password,
+        }
+      );
       window.localStorage.setItem('token', data.token);
 
-      const response = await axios.get('http://localhost:3000/account', {
-        headers: {
-          authorization: data.token,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/account`,
+        {
+          headers: {
+            authorization: data.token,
+          },
+        }
+      );
 
       setUser(response.data);
       navigate('/');
@@ -70,11 +82,14 @@ const LoginRegister = () => {
 
     const tryToLogin = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/account', {
-          headers: {
-            authorization: token,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/account`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
         setUser(response.data);
         navigate('/');
       } catch (err) {

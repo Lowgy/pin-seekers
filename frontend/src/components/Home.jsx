@@ -32,11 +32,14 @@ const Home = () => {
 
     const tryToLogin = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/account', {
-          headers: {
-            authorization: token,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/account`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
         setUser(response.data.user);
       } catch (err) {
         console.error(err.message);
@@ -47,11 +50,14 @@ const Home = () => {
 
     const getCourses = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/courses', {
-          headers: {
-            authorization: token,
-          },
-        });
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/courses`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
         setGolfCourses(data.courses);
       } catch (err) {
         console.log(err.message);

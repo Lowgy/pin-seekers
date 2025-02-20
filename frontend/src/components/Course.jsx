@@ -34,7 +34,9 @@ const Course = () => {
   useEffect(() => {
     const getCourseInfo = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/course/${id}`);
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/course/${id}`
+        );
         setCourse(data.course);
         setCourseReviews(data.course.reviews);
         setIsLoading(false);
@@ -57,7 +59,7 @@ const Course = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:3000/review',
+        `${import.meta.env.VITE_API_URL}/review`,
         {
           title: title,
           body: review,

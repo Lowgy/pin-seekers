@@ -9,7 +9,11 @@ const port = 3000;
 
 const prisma = new PrismaClient();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+);
 app.use(express.json());
 
 const isLoggedIn = (req, res, next) => {
@@ -150,7 +154,6 @@ app.get('/account', isLoggedIn, async (req, res, next) => {
         reviews: true,
       },
     });
-    console.log(user);
     res.status(200).send({
       message: 'User successfully retrieved',
       user: user,
@@ -243,7 +246,6 @@ app.post('/review', isLoggedIn, async (req, res, next) => {
         user: true,
       },
     });
-    console.log(reviews);
 
     const formattedReviews = [];
     for (var i = 0; i < reviews.length; i++) {
