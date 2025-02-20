@@ -290,27 +290,55 @@ app.post('/review', isLoggedIn, async (req, res, next) => {
 
 app.delete('/review/:id', isLoggedIn, async (req, res, next) => {
   try {
-    const review = await prisma.review.findFirst({
+    const reviewToDelete = await prisma.review.findUnique({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!review) {
-      res.status(400).send({ message: 'Error deleting review' });
+    if (!reviewToDelete) {
+      return res.status(404).send({ message: 'Review not found' });
     }
 
-    await prisma.review.delete({
-      where: {
-        id: req.params.id,
-      },
+    const courseId = reviewToDelete.courseId;
+
+    // Perform the deletion and average rating update in a transaction
+    await prisma.$transaction(async (tx) => {
+      // Delete the review
+      await tx.review.delete({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      // Recalculate the average rating for the course
+      const reviews = await tx.review.findMany({
+        where: {
+          courseId: courseId,
+        },
+      });
+
+      const totalRating = reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
+      const averageRating =
+        reviews.length > 0 ? totalRating / reviews.length : 0;
+
+      // Update the course with the new average rating
+      await tx.course.update({
+        where: {
+          id: courseId,
+        },
+        data: {
+          averageRating: averageRating,
+        },
+      });
     });
 
-    res
-      .status(200)
-      .send({ message: 'Review deleted successfully', review: review });
+    res.status(200).send({ message: 'Review deleted successfully' });
   } catch (err) {
-    next();
+    next(err);
   }
 });
 
