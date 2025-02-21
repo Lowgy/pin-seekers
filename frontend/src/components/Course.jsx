@@ -156,23 +156,6 @@ const Course = () => {
                 <MapPinIcon className="w-5 h-5 mr-2" />
                 {course.address}
               </p>
-              <p className="flex items-center text-green-600 mb-2">
-                <PhoneIcon className="w-5 h-5 mr-2" />
-                <a href="/" className="hover:underline">
-                  123-123-1233
-                </a>
-              </p>
-              <p className="flex items-center text-green-600 mb-2">
-                <GlobeIcon className="w-5 h-5 mr-2" />
-                <a
-                  href="/backend"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                >
-                  Visit Website
-                </a>
-              </p>
             </div>
           </div>
         </CardContent>
