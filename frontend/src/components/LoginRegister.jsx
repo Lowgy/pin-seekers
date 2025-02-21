@@ -16,12 +16,18 @@ import { AuthContext } from '@/lib/AuthContext';
 
 const LoginRegister = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [activeTab, setActiveTab] = useState('login');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -79,29 +85,6 @@ const LoginRegister = () => {
       setError(err.response.data.message);
     }
   };
-
-  useEffect(() => {
-    const token = window.localStorage.getItem('token');
-
-    const tryToLogin = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/account`,
-          {
-            headers: {
-              authorization: token,
-            },
-          }
-        );
-        setUser(response.data);
-        navigate('/');
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    tryToLogin();
-  }, []);
 
   return (
     <div

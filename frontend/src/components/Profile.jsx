@@ -1,9 +1,7 @@
-'use client';
-
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { CalendarIcon, FlagIcon, XIcon, ChevronLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -23,6 +21,7 @@ import { AuthContext } from '@/lib/AuthContext';
 
 const Profile = () => {
   const token = window.localStorage.getItem('token');
+  const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
@@ -32,25 +31,29 @@ const Profile = () => {
   const reviewsPerPage = 3;
 
   useEffect(() => {
-    const tryToLogin = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/account`,
-          {
-            headers: {
-              authorization: token,
-            },
-          }
-        );
-        setUser(response.data.user);
-        setIsLoading(false);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+    if (!user) {
+      navigate('/login');
+    } else {
+      const tryToLogin = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/account`,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+          setUser(response.data.user);
+          setIsLoading(false);
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
 
-    tryToLogin();
-  }, [setUser, token]);
+      tryToLogin();
+    }
+  }, []);
 
   const handleEditProfile = async (e) => {
     e.preventDefault();

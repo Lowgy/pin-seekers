@@ -1,6 +1,6 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import { AuthContext } from '@/lib/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   MapIcon,
   ListIcon,
@@ -23,10 +23,11 @@ import {
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
 import axios from 'axios';
-import { debounce } from 'lodash'; // Import debounce
+import { debounce } from 'lodash';
 
 const Home = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const DEFAULT_ZOOM = 5.5;
   const DEFAULT_CENTER = { lat: 52.73395510255055, lng: -98.25222953460538 };
   const [viewMode, setViewMode] = useState('map');
@@ -35,46 +36,32 @@ const Home = () => {
   const [golfCourses, setGolfCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const [searchTerm, setSearchTerm] = useState(''); // New state for search term
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    if (!user) {
+      navigate('/login');
+    } else {
+      const token = window.localStorage.getItem('token');
 
-    const tryToLogin = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/account`,
-          {
-            headers: {
-              authorization: token,
-            },
-          }
-        );
-        setUser(response.data.user);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+      const getCourses = async () => {
+        try {
+          const { data } = await axios.get(
+            `${import.meta.env.VITE_API_URL}/courses`,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+          setGolfCourses(data.courses);
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
 
-    tryToLogin();
-
-    const getCourses = async () => {
-      try {
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_API_URL}/courses`,
-          {
-            headers: {
-              authorization: token,
-            },
-          }
-        );
-        setGolfCourses(data.courses);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    getCourses();
+      getCourses();
+    }
   }, []);
 
   const handleMarkerOpen = (course) => {

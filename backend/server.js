@@ -41,7 +41,7 @@ app.get('/courses', isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.get('/course/:id', async (req, res, next) => {
+app.get('/course/:id', isLoggedIn, async (req, res, next) => {
   try {
     const course = await prisma.course.findFirst({
       where: {

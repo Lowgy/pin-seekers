@@ -1,8 +1,7 @@
-'use client';
-
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '@/lib/AuthContext';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,8 +27,10 @@ import {
 } from '@/components/ui/pagination';
 
 const Course = () => {
-  const token = localStorage.getItem('token');
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
   const numberOfButtons = 5;
   const [isLoading, setIsLoading] = useState(true);
   const [course, setCourse] = useState(null);
@@ -41,23 +42,29 @@ const Course = () => {
   const reviewsPerPage = 4;
 
   useEffect(() => {
-    const getCourseInfo = async () => {
-      try {
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_API_URL}/course/${id}`
-        );
-        setCourse(data.course);
-        setCourseReviews(data.course.reviews);
-        setIsLoading(false);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-
-    if (token) {
+    if (!user) {
+      navigate('/login');
+    } else {
+      const getCourseInfo = async () => {
+        try {
+          const { data } = await axios.get(
+            `${import.meta.env.VITE_API_URL}/course/${id}`,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+          setCourse(data.course);
+          setCourseReviews(data.course.reviews);
+          setIsLoading(false);
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
       getCourseInfo();
     }
-  }, [id, token]);
+  }, []);
 
   const handleRatingClick = (e, rating) => {
     e.preventDefault();
@@ -94,8 +101,6 @@ const Course = () => {
     indexOfLastReview
   );
   const totalPages = Math.ceil(courseReviews.length / reviewsPerPage);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Generate page numbers for pagination
   const getPageNumbers = () => {
