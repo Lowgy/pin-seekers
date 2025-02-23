@@ -30,7 +30,43 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
-app.get('/courses', isLoggedIn, async (req, res, next) => {
+app.get('/featured', async (req, res, next) => {
+  try {
+    let courses;
+    const featuredCourses = await prisma.course.findMany({
+      where: {
+        featured: true,
+      },
+      orderBy: {
+        averageRating: 'desc',
+      },
+      take: 3,
+    });
+
+    if (featuredCourses.length >= 3) {
+      courses = featuredCourses;
+    } else {
+      const highlyRatedCourses = await prisma.course.findMany({
+        where: {
+          averageRating: {
+            in: [4, 5],
+          },
+        },
+        orderBy: {
+          averageRating: 'desc',
+        },
+        take: 3,
+      });
+      courses = highlyRatedCourses;
+    }
+
+    res.status(200).send({ message: 'Courses Retrieved', courses: courses });
+  } catch (err) {
+    next();
+  }
+});
+
+app.get('/courses', async (req, res, next) => {
   try {
     const courses = await prisma.course.findMany();
     if (courses) {
@@ -214,9 +250,32 @@ app.put('/account', isLoggedIn, async (req, res, next) => {
   }
 });
 
+app.get('/reviews', async (req, res, next) => {
+  try {
+    const reviews = await prisma.review.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 3,
+      include: {
+        user: true,
+        course: true,
+      },
+    });
+
+    if (!reviews) {
+      res.status(400).send({ message: 'No recent reviews found' });
+    }
+
+    res
+      .status(200)
+      .send({ message: 'Recent reviews retrieved.', reviews: reviews });
+  } catch (err) {
+    next();
+  }
+});
+
 app.post('/review', isLoggedIn, async (req, res, next) => {
-  const token = req.headers.authorization;
-  const user = jwt.decode(token, process.env.JWT_SECRET);
   try {
     const { title, body, rating, course } = req.body;
 
@@ -226,7 +285,7 @@ app.post('/review', isLoggedIn, async (req, res, next) => {
           title: title,
           body: body,
           rating: rating,
-          userId: user.id,
+          userId: req.user.id,
           courseId: course,
         },
       });
