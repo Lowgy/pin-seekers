@@ -23,7 +23,8 @@ import {
 import { Map } from '@vis.gl/react-google-maps';
 import GolfMarker from '@/components/GolfMarker';
 import axios from 'axios';
-import { debounce } from 'lodash';
+import { debounce, set } from 'lodash';
+import UnAuthHome from './UnAuthHome';
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -37,10 +38,11 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [searchTerm, setSearchTerm] = useState('');
+  const [unAuth, setUnAuth] = useState(false);
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      setUnAuth(true);
     } else {
       const token = window.localStorage.getItem('token');
 
@@ -119,6 +121,10 @@ const Home = () => {
     }
     return pages;
   };
+
+  if (unAuth) {
+    return <UnAuthHome />;
+  }
 
   return (
     <div className="flex flex-col bg-green-50 min-h-screen">

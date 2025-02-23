@@ -15,32 +15,34 @@ const NavBar = () => {
     navigate('/login');
   };
   return (
-    <header className="bg-green-600 text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/">
-          <div className="flex items-center space-x-2">
-            <FlagIcon className="h-8 w-8" />
-            <h1 className="text-2xl font-bold">Pin Seekers</h1>
-          </div>
-        </Link>
-        <nav>
-          <Button
-            variant="ghost"
-            className="text-white hover:text-green-200"
-            asChild
-          >
-            <Link to="/profile">Profile</Link>
-          </Button>
-          <Button
-            variant="ghost"
-            className="text-white hover:text-green-200"
-            onClick={logout}
-          >
-            Logout
-          </Button>
-        </nav>
-      </div>
-    </header>
+    user && (
+      <header className="bg-green-600 text-white p-4 shadow-md">
+        <div className="container mx-auto flex justify-between items-center">
+          <Link to="/">
+            <div className="flex items-center space-x-2">
+              <FlagIcon className="h-8 w-8" />
+              <h1 className="text-2xl font-bold">Pin Seekers</h1>
+            </div>
+          </Link>
+          <nav>
+            <Button
+              variant="ghost"
+              className="text-white hover:text-green-200"
+              asChild
+            >
+              <Link to="/profile">Profile</Link>
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-white hover:text-green-200"
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          </nav>
+        </div>
+      </header>
+    )
   );
 };
 

@@ -51,7 +51,7 @@ function App() {
         window.localStorage.removeItem('token');
         console.log('User logged out');
         setUser(null);
-        if (location.pathname !== '/login') {
+        if (location.pathname !== '/login' && location.pathname !== '/') {
           navigate('/login');
         }
       } finally {
