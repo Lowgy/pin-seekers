@@ -59,9 +59,10 @@ app.get('/featured-courses', async (req, res, next) => {
       });
       courses = highlyRatedCourses;
     }
-
+    print(courses);
     res.status(200).send({ message: 'Courses Retrieved', courses: courses });
   } catch (err) {
+    print('Error');
     next();
   }
 });
