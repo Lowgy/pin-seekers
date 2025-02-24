@@ -28,7 +28,7 @@ const UnAuthHome = () => {
     const fetchFeaturedCourses = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/featured`
+          `${import.meta.env.VITE_API_URL}/featured-courses`
         );
         console.log(response.data.courses);
         setFeaturedCourses(response.data.courses);

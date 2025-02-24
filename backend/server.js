@@ -30,7 +30,7 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
-app.get('/featured', async (req, res, next) => {
+app.get('/featured-courses', async (req, res, next) => {
   try {
     let courses;
     const featuredCourses = await prisma.course.findMany({
