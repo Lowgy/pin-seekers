@@ -4,6 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from './lib/AuthContext';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import Home from '@/components/Home';
+import About from '@/components/About';
 import Spinner from '@/components/Spinner';
 import Course from '@/components/Course';
 import LoginRegister from '@/components/LoginRegister';
@@ -51,7 +52,11 @@ function App() {
         window.localStorage.removeItem('token');
         console.log('User logged out');
         setUser(null);
-        if (location.pathname !== '/login' && location.pathname !== '/') {
+        if (
+          location.pathname !== '/login' &&
+          location.pathname !== '/' &&
+          location.pathname !== '/about'
+        ) {
           navigate('/login');
         }
       } finally {
@@ -76,6 +81,7 @@ function App() {
         {showNavbar && <NavBar />}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginRegister />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/course/:id" element={<Course />} />

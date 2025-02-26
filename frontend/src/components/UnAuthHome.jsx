@@ -43,7 +43,6 @@ const UnAuthHome = () => {
 
   return (
     <div className="min-h-screen bg-green-50">
-      {/* Hero Section */}
       <div className="relative bg-green-800 text-white">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
@@ -54,15 +53,19 @@ const UnAuthHome = () => {
         />
         <div className="relative container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl">
-            <div className="flex items-center mb-6">
+            <div className="flex items-center mb-2">
               <FlagIcon className="h-12 w-12 text-green-400" />
-              <h1 className="text-4xl md:text-5xl font-bold ml-4">
-                Pin Seekers
-              </h1>
+              <span className="text-xl text-green-400 ml-4">
+                Welcome to Pin Seekers
+              </span>
             </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Find Your Perfect <br />
+              Golf Experience
+            </h1>
             <p className="text-xl md:text-2xl mb-8 text-green-100">
-              Discover and review the best golf courses. Join our community of
-              golf enthusiasts.
+              Join golfers discovering and reviewing the best courses. Your next
+              memorable round awaits.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
@@ -77,14 +80,12 @@ const UnAuthHome = () => {
                 size="lg"
                 className="bg-green-600 hover:bg-green-700"
               >
-                <Link to="/login">Learn More</Link>
+                <Link to="/about">Learn More</Link>
               </Button>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Featured Courses Section */}
       <div className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-green-800">
@@ -135,8 +136,6 @@ const UnAuthHome = () => {
           ))}
         </div>
       </div>
-
-      {/* Recent Reviews Section */}
       <div className="container mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-green-800">Recent Reviews</h2>
@@ -173,8 +172,6 @@ const UnAuthHome = () => {
           ))}
         </div>
       </div>
-
-      {/* Call to Action Section */}
       <div className="bg-green-600 text-white">
         <div className="container mx-auto px-4 py-12 text-center">
           <h2 className="text-3xl font-bold mb-4">
